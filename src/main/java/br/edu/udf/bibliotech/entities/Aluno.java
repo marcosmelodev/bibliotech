@@ -3,11 +3,14 @@ package br.edu.udf.bibliotech.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "tb_aluno")
-public class Aluno extends Usuario {
+public class Aluno extends Usuario implements Serializable {
 
     private String curso;
+
 
     public Aluno(){}
 
@@ -16,8 +19,18 @@ public class Aluno extends Usuario {
         this.curso = curso;
     }
 
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+
     @Override
     public int limiteLivros() {
         return 3;
     }
+
+
 }
