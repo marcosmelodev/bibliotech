@@ -1,7 +1,9 @@
 package br.edu.udf.bibliotech.config;
 
 import br.edu.udf.bibliotech.entities.Aluno;
+import br.edu.udf.bibliotech.entities.Professor;
 import br.edu.udf.bibliotech.repositories.AlunoRepository;
+import br.edu.udf.bibliotech.repositories.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +18,18 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private AlunoRepository alunoRepository;
 
+    @Autowired
+    private ProfessorRepository professorRepository;
+
     @Override
     public void run(String... args) throws Exception {
         Aluno a1 = new Aluno(null, "Marcos Santos", "12345", "3333333333", "marcos@teste.com", "ADS");
         Aluno a2 = new Aluno(null, "Tatiana Farias", "54321", "2222222222", "tatiana@teste.com", "Enfermagem");
 
+        Professor p1 = new Professor(null, "Gabriel", "987898", "2222222222", "gabriel@professor.com", "Eng. Software");
+        Professor p2 = new Professor(null, "Kerlla", "123444", "55555533535", "kerlla@professor.com", "Ciencia da Computação");
+        Professor p3 = new Professor(null, "Kadjka", "3333333", "2323232323", "v.kadjka@professor.com", "ADS");
         alunoRepository.saveAll(Arrays.asList(a1,a2));
+        professorRepository.saveAll(Arrays.asList(p1, p2, p3));
     }
 }
