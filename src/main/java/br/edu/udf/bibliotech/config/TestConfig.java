@@ -8,6 +8,7 @@ import br.edu.udf.bibliotech.repositories.AlunoRepository;
 import br.edu.udf.bibliotech.repositories.EmprestimoRepository;
 import br.edu.udf.bibliotech.repositories.LivroRepository;
 import br.edu.udf.bibliotech.repositories.ProfessorRepository;
+import br.edu.udf.bibliotech.service.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private EmprestimoRepository emprestimoRepository;
+
+    @Autowired
+    private EmprestimoService emprestimoService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -106,13 +110,17 @@ public class TestConfig implements CommandLineRunner {
 
         emprestimoRepository.save(e5);
         e1.getLivros().add(l3);
-        e2.getLivros().add(l1);
-        e3.getLivros().add(l1);
-        e3.getLivros().add(l2);
-        e3.getLivros().add(l3);
-        e4.getLivros().add(l2);
+        e1.getLivros().add(l3);
+        //e1.getLivros().add(l4);
+       // e1.getLivros().add(l5);
+        emprestimoService.insert(e1);
+       // emprestimoRepository.insert(e1);
+//        e3.getLivros().add(l1);
+//        e3.getLivros().add(l2);
+//        e3.getLivros().add(l3);
+//        e4.getLivros().add(l2);
 
-        emprestimoRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
+        //emprestimoRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
 
 
 

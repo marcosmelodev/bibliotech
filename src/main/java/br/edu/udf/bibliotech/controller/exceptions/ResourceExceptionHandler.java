@@ -1,5 +1,6 @@
 package br.edu.udf.bibliotech.controller.exceptions;
 
+import br.edu.udf.bibliotech.service.exceptions.BusinessExcecption;
 import br.edu.udf.bibliotech.service.exceptions.DatabaseException;
 import br.edu.udf.bibliotech.service.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,4 +28,13 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
+
+    @ExceptionHandler(BusinessExcecption.class)
+    public ResponseEntity<StandardError> business(BusinessExcecption e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        StandardError err = new StandardError(Instant.now(), status.value(), "Business Exception", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
 }

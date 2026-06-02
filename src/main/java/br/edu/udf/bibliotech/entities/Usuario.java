@@ -91,9 +91,7 @@ public abstract class Usuario implements Serializable {
         this.perfil = perfil;
     }
 
-    public Integer limiteLivros(){
-        return 0;
-    }
+    public abstract Integer limiteLivros();
 
     @Override
     public boolean equals(Object o) {

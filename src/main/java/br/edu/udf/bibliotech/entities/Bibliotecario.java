@@ -14,4 +14,9 @@ public class Bibliotecario extends Usuario{
         super(id, nome, matricula, cpf, email, perfil);
     }
 
+    @Override
+    public Integer limiteLivros() {
+        return 0;
+    }
+
 }

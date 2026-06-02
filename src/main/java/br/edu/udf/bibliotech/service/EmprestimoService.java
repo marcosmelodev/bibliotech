@@ -1,8 +1,10 @@
 package br.edu.udf.bibliotech.service;
 
 import br.edu.udf.bibliotech.entities.Emprestimo;
+import br.edu.udf.bibliotech.entities.Usuario;
 import br.edu.udf.bibliotech.entities.enums.StatusEmprestimo;
 import br.edu.udf.bibliotech.repositories.EmprestimoRepository;
+import br.edu.udf.bibliotech.service.exceptions.BusinessExcecption;
 import br.edu.udf.bibliotech.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,7 @@ public class EmprestimoService {
     }
 
     public Emprestimo insert(Emprestimo obj) {
+        validarLimiteLivros(obj);
         obj.setId(null);
         return repository.save(obj);
     }
@@ -61,5 +64,22 @@ public class EmprestimoService {
         entity.setDataPrevistaDevolucao(obj.getDataPrevistaDevolucao());
         entity.setDataDevolucao(obj.getDataDevolucao());
         entity.setStatus(obj.getStatus());
+    }
+
+    private void validarLimiteLivros(Emprestimo emprestimo){
+        Usuario usuario = emprestimo.getUsuario();
+        Integer livrosEmprestados = livrosEmprestados(usuario);
+        Integer livrosSolicitados = emprestimo.getLivros().size();
+
+        if(livrosEmprestados + livrosSolicitados > usuario.limiteLivros()){
+            throw new BusinessExcecption("Limite de livros excedido");
+        }
+    }
+
+    private Integer livrosEmprestados(Usuario usuario){
+        List<Emprestimo> emprestimosAtivos = repository.findByUsuarioAndStatus(usuario, StatusEmprestimo.ABERTO);
+        return emprestimosAtivos.stream()
+                .mapToInt(e -> e.getLivros().size())
+                .sum();
     }
 }
