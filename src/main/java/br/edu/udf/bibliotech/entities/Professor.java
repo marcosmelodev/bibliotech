@@ -1,5 +1,6 @@
 package br.edu.udf.bibliotech.entities;
 
+import br.edu.udf.bibliotech.entities.enums.PerfilUsuario;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
@@ -13,8 +14,8 @@ public class Professor extends Usuario implements Serializable {
 
     public Professor(){}
 
-    public Professor(Integer id, String nome, String matricula, String cpf, String email, String disciplina) {
-        super(id, nome, matricula, cpf, email);
+    public Professor(Integer id, String nome, String matricula, String cpf, String email, PerfilUsuario perfil, String disciplina) {
+        super(id, nome, matricula, cpf, email, perfil);
         this.disciplina = disciplina;
     }
 

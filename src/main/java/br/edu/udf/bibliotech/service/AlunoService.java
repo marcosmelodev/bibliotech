@@ -30,6 +30,7 @@ public class AlunoService {
     }
 
     public Aluno update(Integer id, Aluno obj) {
+
         try {
             Aluno entity = repository.getReferenceById(id);
             updateData(entity, obj);

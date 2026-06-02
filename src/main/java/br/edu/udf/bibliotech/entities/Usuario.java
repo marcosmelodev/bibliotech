@@ -1,5 +1,6 @@
 package br.edu.udf.bibliotech.entities;
 
+import br.edu.udf.bibliotech.entities.enums.PerfilUsuario;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -21,17 +22,21 @@ public abstract class Usuario implements Serializable {
     private String cpf;
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private PerfilUsuario perfil;
+
     @OneToMany(mappedBy = "usuario")
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
     public Usuario(){}
 
-    public Usuario(Integer id, String nome, String matricula, String cpf, String email) {
+    public Usuario(Integer id, String nome, String matricula, String cpf, String email, PerfilUsuario perfil) {
         this.id = id;
         this.nome = nome;
         this.matricula = matricula;
         this.cpf = cpf;
         this.email = email;
+        this.perfil = perfil;
     }
 
     public List<Emprestimo> getEmprestimos() {
@@ -78,6 +83,13 @@ public abstract class Usuario implements Serializable {
         this.email = email;
     }
 
+    public PerfilUsuario getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(PerfilUsuario perfil) {
+        this.perfil = perfil;
+    }
 
     public Integer limiteLivros(){
         return 0;

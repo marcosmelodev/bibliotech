@@ -5,9 +5,11 @@ import br.edu.udf.bibliotech.entities.Professor;
 import br.edu.udf.bibliotech.entities.Professor;
 import br.edu.udf.bibliotech.repositories.AlunoRepository;
 import br.edu.udf.bibliotech.repositories.ProfessorRepository;
+import br.edu.udf.bibliotech.service.exceptions.DatabaseException;
 import br.edu.udf.bibliotech.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,5 +43,18 @@ public class ProfessorService {
     private void updateData(Professor entity, Professor obj) {
         entity.setNome(obj.getNome());
         entity.setEmail(obj.getEmail());
+    }
+
+    public void delete(Integer id) {
+
+        if (!repository.existsById(id)){
+            throw new ResourceNotFoundException(id);
+        }
+        try{
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
+
     }
 }
