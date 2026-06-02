@@ -1,6 +1,7 @@
 package br.edu.udf.bibliotech.entities;
 
 import br.edu.udf.bibliotech.entities.enums.StatusLivro;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public class Livro implements Serializable {
     private Integer quantidadeDisponivel;
 
     @ManyToMany(mappedBy = "livros")
+    @JsonIgnore
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
 

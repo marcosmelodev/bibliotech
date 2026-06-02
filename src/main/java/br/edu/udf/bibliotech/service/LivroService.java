@@ -3,9 +3,11 @@ package br.edu.udf.bibliotech.service;
 import br.edu.udf.bibliotech.entities.Livro;
 import br.edu.udf.bibliotech.entities.Livro;
 import br.edu.udf.bibliotech.repositories.LivroRepository;
+import br.edu.udf.bibliotech.service.exceptions.DatabaseException;
 import br.edu.udf.bibliotech.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +32,12 @@ public class LivroService {
         return repository.findByAutorContainingIgnoreCase(autor);
     }
 
+    public List<Livro> findByTituloContainingIgnoreCase(String titutlo){
+        return repository.findByTituloContainingIgnoreCase(titutlo);
+
+
+    }
+
     public Livro update(Integer id, Livro obj) {
         try {
             Livro entity = repository.getReferenceById(id);
@@ -45,5 +53,19 @@ public class LivroService {
         entity.setTitulo(obj.getTitulo());
         entity.setAno(obj.getAno());
         entity.setEditora(obj.getEditora());
+    }
+
+
+    public void delete(Integer id) {
+
+        if (!repository.existsById(id)){
+            throw new ResourceNotFoundException(id);
+        }
+        try{
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
+
     }
 }

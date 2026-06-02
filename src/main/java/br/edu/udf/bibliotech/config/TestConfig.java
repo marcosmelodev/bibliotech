@@ -57,16 +57,47 @@ public class TestConfig implements CommandLineRunner {
                 2008,
                 StatusLivro.DISPONIVEL,
                 2);
-        livroRepository.saveAll(Arrays.asList(l1,l2, l3));
+
+        Livro l4 = new Livro(
+                null,
+                "9780132350884",
+                "Clean Code",
+                "Robert C. Martin",
+                "Prentice Hall",
+                2008,
+                StatusLivro.DISPONIVEL,
+                3
+        );
+
+        Livro l5 = new Livro(
+                null,
+                "9780137081073",
+                "The Clean Coder",
+                "Robert C. Martin",
+                "Prentice Hall",
+                2011,
+                StatusLivro.DISPONIVEL,
+                2
+        );
+
+        Livro l6 = new Livro(
+                null,
+                "9780134494166",
+                "Clean Architecture",
+                "Robert C. Martin",
+                "Prentice Hall",
+                2017,
+                StatusLivro.DISPONIVEL,
+                4
+        );
+        livroRepository.saveAll(Arrays.asList(l1,l2, l3, l4, l5, l6));
 
         Emprestimo e1 = new Emprestimo(null, LocalDate.now(), LocalDate.now().plusDays(7), null, a1, StatusEmprestimo.ABERTO);
         Emprestimo e2 = new Emprestimo(null, LocalDate.now(), LocalDate.now().plusDays(15), null, p1, StatusEmprestimo.DEVOLVIDO);
         Emprestimo e3 = new Emprestimo(null, LocalDate.now(), LocalDate.now().plusDays(10), null, a1, StatusEmprestimo.ABERTO
         );
         Emprestimo e4 = new Emprestimo(null, LocalDate.now().minusDays(20), LocalDate.now().minusDays(5), null, a1, StatusEmprestimo.ATRASADO);
-        Emprestimo e5 = new Emprestimo(
-                null,
-                LocalDate.now().minusDays(10), // emprestado há 10 dias
+        Emprestimo e5 = new Emprestimo(null, LocalDate.now().minusDays(10), // emprestado há 10 dias
                 LocalDate.now().minusDays(3),  // deveria devolver há 3 dias
                 LocalDate.now().minusDays(4),  // devolveu há 4 dias
                 p1,

@@ -33,4 +33,17 @@ public class LivroController {
         return ResponseEntity.ok().body(livros);
     }
 
+    @GetMapping(value = "/livros/{titulo}")
+    public ResponseEntity<List<Livro>> findByTitulo(@PathVariable String titulo){
+        List<Livro> titulos = service.findByTituloContainingIgnoreCase(titulo);
+        return ResponseEntity.ok().body(titulos);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();//http = 204
+    }
+
+
 }
