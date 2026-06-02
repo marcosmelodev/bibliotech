@@ -1,10 +1,14 @@
 package br.edu.udf.bibliotech.service;
 
 import br.edu.udf.bibliotech.entities.Emprestimo;
+import br.edu.udf.bibliotech.entities.enums.StatusEmprestimo;
 import br.edu.udf.bibliotech.repositories.EmprestimoRepository;
+import br.edu.udf.bibliotech.service.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,5 +25,41 @@ public class EmprestimoService {
     public Emprestimo findById(Integer id){
         Optional<Emprestimo> obj = repository.findById(id);
         return obj.get();
+    }
+
+    public Emprestimo devolverLivro(Integer id){
+
+        Emprestimo emprestimo = findById(id);
+
+        emprestimo.setStatus(StatusEmprestimo.DEVOLVIDO);
+        emprestimo.setDataDevolucao(LocalDate.now());
+
+        return repository.save(emprestimo);
+    }
+
+    public List<Emprestimo> findAtrasados() {
+        return repository.findByStatus(StatusEmprestimo.ATRASADO);
+    }
+
+    public Emprestimo insert(Emprestimo obj) {
+        obj.setId(null);
+        return repository.save(obj);
+    }
+
+    public Emprestimo update(Integer id, Emprestimo obj) {
+
+        try{
+            Emprestimo entity = repository.getReferenceById(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        } catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
+    }
+
+    private void updateData(Emprestimo entity, Emprestimo obj){
+        entity.setDataPrevistaDevolucao(obj.getDataPrevistaDevolucao());
+        entity.setDataDevolucao(obj.getDataDevolucao());
+        entity.setStatus(obj.getStatus());
     }
 }

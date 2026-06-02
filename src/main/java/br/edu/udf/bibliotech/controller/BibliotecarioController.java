@@ -1,8 +1,7 @@
 package br.edu.udf.bibliotech.controller;
 
-import br.edu.udf.bibliotech.entities.Aluno;
-import br.edu.udf.bibliotech.entities.Usuario;
-import br.edu.udf.bibliotech.service.AlunoService;
+import br.edu.udf.bibliotech.entities.Bibliotecario;
+import br.edu.udf.bibliotech.service.BibliotecarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,26 +11,32 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/alunos")
-public class AlunoController {
+@RequestMapping("/bibliotecarios")
+public class BibliotecarioController {
 
     @Autowired
-    private AlunoService service;
+    private BibliotecarioService service;
 
     @GetMapping
-    public ResponseEntity<List<Aluno>> findAll(){
-        List<Aluno> listaAlunos = service.findAll();
-        return ResponseEntity.ok().body(listaAlunos);
+    public ResponseEntity<List<Bibliotecario>> findAll(){
+
+        List<Bibliotecario> list = service.findAll();
+
+        return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Aluno> findById(@PathVariable Integer id){
-        Aluno obj = service.findById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Bibliotecario> findById(
+            @PathVariable Integer id){
+
+        Bibliotecario obj = service.findById(id);
+
         return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
-    public ResponseEntity<Aluno> insert(@RequestBody Aluno obj){
+    public ResponseEntity<Bibliotecario> insert(
+            @RequestBody Bibliotecario obj){
 
         obj = service.insert(obj);
 
@@ -45,16 +50,9 @@ public class AlunoController {
     }
 
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Aluno> update(@PathVariable Integer id, @RequestBody Aluno obj){
-        obj = service.update(id, obj);
-        return ResponseEntity.ok().body(obj);
-    }
-
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         service.delete(id);
         return ResponseEntity.noContent().build();//http = 204
     }
-
 }

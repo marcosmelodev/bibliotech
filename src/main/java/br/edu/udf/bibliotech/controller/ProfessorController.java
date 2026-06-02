@@ -7,7 +7,9 @@ import br.edu.udf.bibliotech.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -30,6 +32,19 @@ public class ProfessorController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @PostMapping
+    public ResponseEntity<Professor> insert(@RequestBody Professor obj){
+
+        obj = service.insert(obj);
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(obj.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(obj);
+    }
     @PutMapping(value = "/{id}")
     public ResponseEntity<Professor> update(@PathVariable Integer id, @RequestBody Professor obj){
         obj = service.update(id, obj);

@@ -1,9 +1,6 @@
 package br.edu.udf.bibliotech.config;
 
-import br.edu.udf.bibliotech.entities.Aluno;
-import br.edu.udf.bibliotech.entities.Emprestimo;
-import br.edu.udf.bibliotech.entities.Livro;
-import br.edu.udf.bibliotech.entities.Professor;
+import br.edu.udf.bibliotech.entities.*;
 import br.edu.udf.bibliotech.entities.enums.PerfilUsuario;
 import br.edu.udf.bibliotech.entities.enums.StatusEmprestimo;
 import br.edu.udf.bibliotech.entities.enums.StatusLivro;
@@ -116,6 +113,8 @@ public class TestConfig implements CommandLineRunner {
         e4.getLivros().add(l2);
 
         emprestimoRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
+
+
 
     }
 }

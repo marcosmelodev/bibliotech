@@ -56,4 +56,9 @@ public class AlunoService {
             throw new DatabaseException(e.getMessage());
         }
     }
+
+    public Aluno insert(Aluno obj) {
+        obj.setId(null);
+        return repository.save(obj);
+    }
 }

@@ -57,4 +57,10 @@ public class ProfessorService {
         }
 
     }
+
+    public Professor insert(Professor obj) {
+
+        obj.setId(null);
+        return repository.save(obj);
+    }
 }

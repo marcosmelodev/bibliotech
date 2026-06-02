@@ -5,7 +5,9 @@ import br.edu.udf.bibliotech.service.LivroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -37,6 +39,20 @@ public class LivroController {
     public ResponseEntity<List<Livro>> findByTitulo(@PathVariable String titulo){
         List<Livro> titulos = service.findByTituloContainingIgnoreCase(titulo);
         return ResponseEntity.ok().body(titulos);
+    }
+
+    @PostMapping
+    public ResponseEntity<Livro> insert(@RequestBody Livro obj){
+
+        obj = service.insert(obj);
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(obj.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(obj);
     }
 
     @DeleteMapping(value = "/{id}")

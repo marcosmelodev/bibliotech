@@ -68,4 +68,13 @@ public class LivroService {
         }
 
     }
+
+    public Livro insert(Livro obj) {
+        obj.setId(null);
+
+        if(obj.getQuantidadeDisponivel() < 0){
+            throw new IllegalArgumentException("QUantidade não pode ser negativa");
+        }
+        return repository.save(obj);
+    }
 }
