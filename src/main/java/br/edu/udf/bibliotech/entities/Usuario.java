@@ -70,7 +70,9 @@ public abstract class Usuario implements Serializable {
     }
 
 
-    public abstract int limiteLivros();
+    public Integer limiteLivros(){
+        return 0;
+    }
 
     @Override
     public boolean equals(Object o) {

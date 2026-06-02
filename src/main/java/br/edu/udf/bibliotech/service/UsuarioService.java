@@ -2,6 +2,8 @@ package br.edu.udf.bibliotech.service;
 
 import br.edu.udf.bibliotech.entities.Usuario;
 import br.edu.udf.bibliotech.repositories.UsuarioRepository;
+import br.edu.udf.bibliotech.service.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +24,6 @@ public class UsuarioService {
         Optional<Usuario> obj = repository.findById(id);
         return obj.get();
     }
+
+
 }

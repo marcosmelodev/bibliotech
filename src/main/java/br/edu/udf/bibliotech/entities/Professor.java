@@ -27,7 +27,7 @@ public class Professor extends Usuario implements Serializable {
     }
 
     @Override
-    public int limiteLivros() {
+    public Integer limiteLivros() {
         return 5;
     }
 
