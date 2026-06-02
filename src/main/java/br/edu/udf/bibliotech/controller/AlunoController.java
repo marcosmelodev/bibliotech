@@ -22,18 +22,22 @@ public class AlunoController {
         return ResponseEntity.ok().body(listaAlunos);
     }
 
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<Aluno> findById(@PathVariable Integer id){
         Aluno obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
-
     @PutMapping(value = "/{id}")
     public ResponseEntity<Aluno> update(@PathVariable Integer id, @RequestBody Aluno obj){
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();//http = 204
     }
 
 }

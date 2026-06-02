@@ -3,6 +3,8 @@ package br.edu.udf.bibliotech.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +21,9 @@ public abstract class Usuario implements Serializable {
     private String cpf;
     private String email;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Emprestimo> emprestimos = new ArrayList<>();
+
     public Usuario(){}
 
     public Usuario(Integer id, String nome, String matricula, String cpf, String email) {
@@ -27,6 +32,10 @@ public abstract class Usuario implements Serializable {
         this.matricula = matricula;
         this.cpf = cpf;
         this.email = email;
+    }
+
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
     }
 
     public Integer getId() {

@@ -3,9 +3,12 @@ package br.edu.udf.bibliotech.service;
 import br.edu.udf.bibliotech.entities.Aluno;
 import br.edu.udf.bibliotech.entities.Usuario;
 import br.edu.udf.bibliotech.repositories.AlunoRepository;
+import br.edu.udf.bibliotech.service.exceptions.DatabaseException;
 import br.edu.udf.bibliotech.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +42,15 @@ public class AlunoService {
     private void updateData(Aluno entity, Aluno obj) {
         entity.setNome(obj.getNome());
         entity.setEmail(obj.getEmail());
+    }
+
+    public void delete(Integer id){
+        try{
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e){
+            throw  new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 }

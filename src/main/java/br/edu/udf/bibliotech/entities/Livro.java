@@ -4,6 +4,8 @@ import br.edu.udf.bibliotech.entities.enums.StatusLivro;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +22,10 @@ public class Livro implements Serializable {
     private Integer ano;
     private StatusLivro status;
     private Integer quantidadeDisponivel;
+
+    @ManyToMany(mappedBy = "livros")
+    private List<Emprestimo> emprestimos = new ArrayList<>();
+
 
     public Livro(){}
 
@@ -96,6 +102,10 @@ public class Livro implements Serializable {
 
     public void setQuantidadeDisponivel(Integer quantidadeDisponivel) {
         this.quantidadeDisponivel = quantidadeDisponivel;
+    }
+
+    public List<Emprestimo> getEmprestimos() {
+        return emprestimos;
     }
 
     @Override
