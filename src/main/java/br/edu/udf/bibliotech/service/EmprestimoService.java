@@ -1,7 +1,6 @@
 package br.edu.udf.bibliotech.service;
 
 import br.edu.udf.bibliotech.entities.Emprestimo;
-import br.edu.udf.bibliotech.entities.Professor;
 import br.edu.udf.bibliotech.repositories.EmprestimoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

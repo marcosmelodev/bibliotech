@@ -45,10 +45,12 @@ public class AlunoService {
     }
 
     public void delete(Integer id){
+
+        if (!repository.existsById(id)){
+            throw  new ResourceNotFoundException(id);
+        }
         try{
             repository.deleteById(id);
-        } catch (EmptyResultDataAccessException e){
-            throw  new ResourceNotFoundException(id);
         } catch (DataIntegrityViolationException e){
             throw new DatabaseException(e.getMessage());
         }
