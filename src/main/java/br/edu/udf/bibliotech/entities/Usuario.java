@@ -1,6 +1,7 @@
 package br.edu.udf.bibliotech.entities;
 
 import br.edu.udf.bibliotech.entities.enums.PerfilUsuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public abstract class Usuario implements Serializable {
     private PerfilUsuario perfil;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
     public Usuario(){}

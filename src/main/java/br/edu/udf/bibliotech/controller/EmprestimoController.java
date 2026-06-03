@@ -1,5 +1,6 @@
 package br.edu.udf.bibliotech.controller;
 
+import br.edu.udf.bibliotech.dto.EmprestimoRequest;
 import br.edu.udf.bibliotech.entities.Emprestimo;
 import br.edu.udf.bibliotech.service.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,24 @@ public class EmprestimoController {
     @Autowired
     private EmprestimoService service;
 
-    @PostMapping
-    public ResponseEntity<Emprestimo> insert(@RequestBody Emprestimo obj){
+//    @PostMapping
+//    public ResponseEntity<Emprestimo> insert(@RequestBody Emprestimo obj){
+//
+//        obj = service.insert(obj);
+//
+//        URI uri = ServletUriComponentsBuilder
+//                .fromCurrentRequest()
+//                .path("/{id}")
+//                .buildAndExpand(obj.getId())
+//                .toUri();
+//
+//        return ResponseEntity.created(uri).body(obj);
+//    }
 
-        obj = service.insert(obj);
+    @PostMapping
+    public ResponseEntity<Emprestimo> insert(@RequestBody EmprestimoRequest request) {
+
+        Emprestimo obj = service.insert(request);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -30,6 +45,7 @@ public class EmprestimoController {
 
         return ResponseEntity.created(uri).body(obj);
     }
+
 
     @GetMapping
     public ResponseEntity<List<Emprestimo>> findAll() {

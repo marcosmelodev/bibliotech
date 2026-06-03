@@ -113,7 +113,7 @@ public class TestConfig implements CommandLineRunner {
         e1.getLivros().add(l3);
         //e1.getLivros().add(l4);
        // e1.getLivros().add(l5);
-        emprestimoService.insert(e1);
+        //emprestimoService.insert(e1);
 
        // emprestimoRepository.insert(e1);
 //        e3.getLivros().add(l1);

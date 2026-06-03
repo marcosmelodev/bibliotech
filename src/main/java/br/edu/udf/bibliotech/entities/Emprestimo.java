@@ -1,6 +1,7 @@
 package br.edu.udf.bibliotech.entities;
 
 import br.edu.udf.bibliotech.entities.enums.StatusEmprestimo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.util.Objects;
 public class Emprestimo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private LocalDate dataEmprestimo;
     private LocalDate dataPrevistaDevolucao;
     private LocalDate dataDevolucao;
@@ -22,8 +23,10 @@ public class Emprestimo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+    @Enumerated(EnumType.STRING)
     private StatusEmprestimo status;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "tb_emprestimo_livro",
@@ -35,7 +38,7 @@ public class Emprestimo implements Serializable {
 
     public Emprestimo(){}
 
-    public Emprestimo(Long id, LocalDate dataEmprestimo, LocalDate dataPrevistaDevolucao, LocalDate dataDevolucao, Usuario usuario, StatusEmprestimo status) {
+    public Emprestimo(Integer id, LocalDate dataEmprestimo, LocalDate dataPrevistaDevolucao, LocalDate dataDevolucao, Usuario usuario, StatusEmprestimo status) {
         this.id = id;
         this.dataEmprestimo = dataEmprestimo;
         this.dataPrevistaDevolucao = dataPrevistaDevolucao;
@@ -44,11 +47,11 @@ public class Emprestimo implements Serializable {
         this.status = status;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
